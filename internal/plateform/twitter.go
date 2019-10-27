@@ -6,7 +6,7 @@ import (
 )
 
 type Twitter struct {
-	Client *twitter.Client
+	client *twitter.Client
 }
 
 func NewTwitterClient(consumerKey, consumerSecret, accessToken, accessTokenSecret string) (*Twitter, error) {
@@ -27,6 +27,15 @@ func NewTwitterClient(consumerKey, consumerSecret, accessToken, accessTokenSecre
 	}
 
 	return &Twitter{
-		Client: client,
+		client: client,
 	}, nil
+}
+
+func (t Twitter) SendTweet(text string) error {
+	_, _, err := t.client.Statuses.Update(text, nil)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
