@@ -1,9 +1,14 @@
+// Twitter wrap the go-twitter package.
+
 package plateform
 
 import (
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
+	"github.com/pkg/errors"
 )
+
+const limitTweet = 280
 
 type Twitter struct {
 	client *twitter.Client
@@ -38,4 +43,12 @@ func (t Twitter) SendTweet(text string) error {
 	}
 
 	return nil
+}
+
+func VerifyTweet(message string) (bool, error) {
+	if len(message) > limitTweet {
+		return false, errors.Errorf("message %s contains more than %d characters!", message, limitTweet)
+	}
+
+	return true, nil
 }
