@@ -1,1 +1,5 @@
-tweetwee
+ottosocial
+vendor
+.goreleaser.yml
+goreleaser.sh
+test.csv

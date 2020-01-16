@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Phantas0s/tweetwee/cmd"
+	"github.com/Phantas0s/ottosocial/cmd"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
@@ -20,13 +20,14 @@ func initConfig() {
 	}
 
 	viper.AddConfigPath(home)
-	viper.AddConfigPath("/home/hypnos")
-	viper.SetConfigName("tuit")
+	// viper.AddConfigPath("/home/hypnos")
+	viper.SetConfigName("ottosocial")
 
-	viper.AutomaticEnv()
 	viper.ReadInConfig()
+	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
+	fmt.Println("ottosocial running...")
 }

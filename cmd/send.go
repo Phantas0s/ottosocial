@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/Phantas0s/tweetwee/internal"
+	"github.com/Phantas0s/ottosocial/internal"
 	"github.com/spf13/cobra"
 )
 

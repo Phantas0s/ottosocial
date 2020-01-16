@@ -1,9 +1,11 @@
 package internal
 
 import (
+	"log"
 	"time"
 
-	"github.com/Phantas0s/tweetwee/internal/plateform"
+	"github.com/Phantas0s/ottosocial/internal/plateform"
+	"github.com/pkg/errors"
 )
 
 type Twitter struct {
@@ -41,20 +43,28 @@ func (t *Twitter) SendTweet(message string) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 
-func (t *Twitter) Sender(ts []TweetSchedule) func() error {
+func (t *Twitter) Sender(ts []TweetSchedule, logger *log.Logger) func() error {
 	return func() error {
+		defer func() {
+			if r := recover(); r != nil {
+				logger.Printf("A panic occured: %v \n", r)
+			}
+		}()
 		for _, v := range ts {
-			// TODO not really reliable - lack of precision
-			if v.Date.Format(timeLayout) == time.Now().Format(timeLayout) {
+			// TODO not really reliable / lack of precision
+			now := time.Now().Format(timeLayout)
+			if v.Date.Format(timeLayout) == now {
 				err := t.twitter.SendTweet(v.TweetText)
 				if err != nil {
-					return err
+					return errors.Wrapf(err, "%s - Error while sending the message '%s' to Twitter", now, v.TweetText)
 				}
 			}
 		}
+
 		return nil
 	}
 }
