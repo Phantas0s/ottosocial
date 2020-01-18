@@ -1,9 +1,6 @@
-Ottosocial is a CLI which allows you to schedule and send automatically messages on social media. For now, only Twitter is supported. More might come.
+Ottosocial is a CLI which allows you to schedule and send automatically messages on social media. 
 
-# Why using Ottosocial?
-
-* Ottosocial can send many messages automatically.
-* Add your messages and the time they should be published in a very simple CSV.
+For now, only Twitter is supported.
 
 # Menu
 
