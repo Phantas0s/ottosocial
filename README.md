@@ -4,6 +4,8 @@ ottosocial is a CLI which allows you to schedule and send automatically messages
 
 For now, only Twitter is supported.
 
+ottosocial is in beta. Breaking changes might come.
+
 # Menu
 
 * [Installation](#installation)
