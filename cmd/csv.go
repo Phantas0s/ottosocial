@@ -3,6 +3,7 @@ package cmd
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/Phantas0s/ottosocial/internal"
 	"github.com/jasonlvhit/gocron"
@@ -97,5 +98,8 @@ func InitLoggerFile(logpath string) *log.Logger {
 		log.Fatal(err)
 	}
 
-	return log.New(file, "", 0)
+	l := log.New(file, "", 0)
+	l.SetPrefix(time.Now().Format("2006-01-02 15:04:05"))
+
+	return l
 }

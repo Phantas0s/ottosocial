@@ -59,9 +59,9 @@ func (t *Twitter) Sender(ts []TweetSchedule, logger *log.Logger) func() error {
 			now := time.Now().Format(timeLayout + ":05")
 			if v.Date.Format(timeLayout+":05") == now {
 				err := t.twitter.SendTweet(v.TweetText)
-				logger.Printf("The tweet %s was sent at %s", v.TweetText, time.Now().Format(timeLayout))
+				logger.Printf("The tweet '%s' was sent", v.TweetText)
 				if err != nil {
-					return errors.Wrapf(err, "%s - Error while sending the message '%s' to Twitter", now, v.TweetText)
+					return errors.Wrapf(err, "Error while sending the message '%s' to Twitter", v.TweetText)
 				}
 			}
 		}
