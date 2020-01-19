@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var RootCmd = &cobra.Command{Use: "twuitwui"}
+var RootCmd = &cobra.Command{Use: "ottosocial"}
 
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {

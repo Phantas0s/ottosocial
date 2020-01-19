@@ -12,14 +12,14 @@ case $ARCH in
 esac
 
 # prepare the download URL
-GITHUB_LATEST_VERSION=$(curl -L -s -H 'Accept: application/json' https://github.com/Phantas0s/devdash/releases/latest | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
-GITHUB_FILE="devdash_${GITHUB_LATEST_VERSION//v/}_$(uname -s)_${ARCH}.tar.gz"
-GITHUB_URL="https://github.com/Phantas0s/devdash/releases/download/${GITHUB_LATEST_VERSION}/${GITHUB_FILE}"
+GITHUB_LATEST_VERSION=$(curl -L -s -H 'Accept: application/json' https://github.com/Phantas0s/ottosocial/releases/latest | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+GITHUB_FILE="ottosocial${GITHUB_LATEST_VERSION//v/}_$(uname -s)_${ARCH}.tar.gz"
+GITHUB_URL="https://github.com/Phantas0s/ottosocial/releases/download/${GITHUB_LATEST_VERSION}/${GITHUB_FILE}"
 echo $GITHUB_URL
 
 # install/update the local binary
 curl -LO $GITHUB_URL
-mv ${GITHUB_FILE} devdash.tar.gz
-tar xzvf devdash.tar.gz devdash
-sudo mv -f devdash /usr/local/bin/
-rm devdash.tar.gz
+mv ${GITHUB_FILE} ottosocial.tar.gz
+tar xzvf ottosocial.tar.gz ottosocial
+sudo mv -f ottosocial /usr/local/bin/
+rm ottosocial.tar.gz
