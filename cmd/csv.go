@@ -53,7 +53,9 @@ func csv() {
 	if verify {
 		errs := tw.VerifyTweetSchedules(tweetScheduled)
 		if len(errs) > 0 {
-			logger.Println(errs)
+			for _, v := range errs {
+				logger.Println(v)
+			}
 			return
 		}
 	}
@@ -99,7 +101,7 @@ func InitLoggerFile(logpath string) *log.Logger {
 	}
 
 	l := log.New(file, "", 0)
-	l.SetPrefix(time.Now().Format("2006-01-02 15:04:05"))
+	l.SetPrefix(time.Now().Format("2006-01-02 15:04:05") + " - ")
 
 	return l
 }

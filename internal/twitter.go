@@ -55,7 +55,7 @@ func (t *Twitter) Sender(ts []TweetSchedule, logger *log.Logger) func() error {
 			}
 		}()
 		for _, v := range ts {
-			// TODO not really reliable / lack of precision
+			// TODO not really reliable / lack of precision (?)
 			now := time.Now().Format(timeLayout + ":05")
 			if v.Date.Format(timeLayout+":05") == now {
 				err := t.twitter.SendTweet(v.TweetText)
@@ -73,7 +73,7 @@ func (t *Twitter) Sender(ts []TweetSchedule, logger *log.Logger) func() error {
 func (*Twitter) VerifyTweetSchedules(ts []TweetSchedule) []error {
 	errors := []error{}
 	for _, v := range ts {
-		_, err := plateform.VerifyTweet(v.TweetText)
+		_, err := plateform.VerifyTweetLength(v.TweetText)
 		if err != nil {
 			errors = append(errors, err)
 		}

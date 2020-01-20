@@ -49,6 +49,8 @@ First of all, you need to authorize ottosocial to send tweets from your twitter 
 
 For now, only the command `csv` is available.
 
+You can use a [terminal multiplexer](https://thevaluable.dev/tmux-boost-productivity-terminal/) or `&` to run ottosocial in the background.
+
 # Configuration
 
 Some configuration is required in order to run ottosocial. Here's the detail:
@@ -63,23 +65,26 @@ Some configuration is required in order to run ottosocial. Here's the detail:
 | file             | File path of the CSV            | `--filepath`, `-f`         | string       | yes        | -         |
 | verify           | Verify each tweet               | `--verify`, `-v`           | boolean      | no         | false     |
 
-**NOTE**: if `logpath` is not filled, any log will be directly output in the terminal.
+**NOTES**: 
+
+* If `logpath` is not filled, the default output is your shell.
+* If `verify` is `true`, ottosocial will stop if one (or more) tweets are invalid.
 
 You can either way use flags or a configuration file.
 
 ## Flags
 
-You'll need to precise every required configuration field directly when you launch ottosocial. 
+If you don't want to use a configuration file, you'll need to precise every required configuration field directly when you launch ottosocial.
 
 For example:
 
 ```
-ottosocial csv --key=1234 --secret=5678 --token=910-11 --token-secret=12KK --logpath=/tmp/ottosocial-logs -v -f test.csv
+ottosocial csv --key=1234 --secret=5678 --token=910-11 --token-secret=12KK --logpath=/tmp/ottosocial-logs -v -f ./test.csv
 ```
 
 ## Configuration File
 
-You'll need to create the file `~/ottosocial.yml` and add your configuration there. For example:
+This is the simplest way to configure ottosocial. You'll need to create the file `~/ottosocial.yml` and add your configuration there. For example:
 
 ```
 ---
@@ -91,7 +96,7 @@ logpath: /tmp/ottosocial-logs
 file: ~/my-tweets.csv
 ```
 
-Then, you need to launch ottosocial as follow: `ottosocial -v`
+Then, you simply need to launch ottosocial (with or without the `--verify` flag). 
 
 # CSV Format
 

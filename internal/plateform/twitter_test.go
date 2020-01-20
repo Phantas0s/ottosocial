@@ -2,7 +2,7 @@ package plateform
 
 import "testing"
 
-func Test_VerifyTweet(t *testing.T) {
+func Test_VerifyTweetLength(t *testing.T) {
 	testCases := []struct {
 		name     string
 		expected bool
@@ -25,7 +25,7 @@ func Test_VerifyTweet(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			actual, err := VerifyTweet(tc.message)
+			actual, err := VerifyTweetLength(tc.message)
 			if (err != nil) != tc.wantErr {
 				t.Errorf("Error '%v' even if wantErr is %t", err, tc.wantErr)
 				return
