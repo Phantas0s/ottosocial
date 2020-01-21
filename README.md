@@ -111,6 +111,10 @@ For example:
 
 You need to respect the date format. If the date is in the past, the tweet will never be send.
 
+**NOTES**:
+
+* If you modify the CSV, you need to relaunch ottosocial. I might implement a hot reload later.
+
 # Contribute
 
 First of all, thanks a lot if you want to contribute to ottosocial!
