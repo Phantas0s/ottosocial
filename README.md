@@ -105,8 +105,8 @@ ottosocial can send tweets you previously typed in a CSV. This CSV needs to have
 For example:
 
 ```csv
-2020-01-16 16:48,This is a test
-2020-01-16 16:49,This is another test
+2020-01-23 07:57,This is a test
+2020-01-23 08:00,"This is,a,with quotes test"
 ```
 
 You need to respect the date format. If the date is in the past, the tweet will never be send.
