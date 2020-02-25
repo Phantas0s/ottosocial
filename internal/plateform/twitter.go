@@ -47,7 +47,7 @@ func (t Twitter) SendTweet(text string) error {
 
 func VerifyTweetLength(message string) (bool, error) {
 	if len(message) > limitTweet {
-		return false, errors.Errorf("message %s contains more than %d characters!", message, limitTweet)
+		return false, errors.Errorf("The message contains more than %d characters: \n \"%s\"", limitTweet, message)
 	}
 
 	return true, nil

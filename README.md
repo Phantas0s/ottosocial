@@ -1,10 +1,10 @@
 ![travis CLI](https://api.travis-ci.org/Phantas0s/ottosocial.svg?branch=master&style=for-the-badge)
 
-ottosocial is a CLI which allows you to schedule and send automatically messages on social media from a CSV.
+ottosocial is a CLI which allows you to schedule and send automatically messages on social media, from a CSV file.
 
-For now, only Twitter is supported.
+*For now, only Twitter is supported.*
 
-ottosocial is in beta. Breaking changes might come.
+*ottosocial is in beta. Breaking changes might come.*
 
 # Menu
 
@@ -34,7 +34,7 @@ rm linux.sh
 
 ## Manual installation
 
-You need to clone this repository and build the binary at the root.
+You need to clone this repository and build the binary in the root directory.
 
 # Getting Started
 
@@ -43,13 +43,13 @@ First of all, you need to authorize ottosocial to send tweets from your twitter 
 1. Go to [Twitter app management](https://developer.twitter.com/en/apps). Log in if necessary.
 2. Click on "Create an app".
 3. Fill the required fields.
-4. You'll need the API key, API secret key, Access Token and Access Token Secret to authorize ottosocial to send tweets (see below).
+4. You'll need to copy the API key, API secret key, Access Token and Access Token Secret provided, to authorize ottosocial to send tweets (see below the configuration).
 
 # Commands
 
 For now, only the command `csv` is available.
 
-You can use a [terminal multiplexer](https://thevaluable.dev/tmux-boost-productivity-terminal/) or `&` to run ottosocial in the background.
+I advise you to use a [terminal multiplexer](https://thevaluable.dev/tmux-boost-productivity-terminal/) or `&` to run ottosocial in the background.
 
 # Configuration
 
@@ -67,14 +67,14 @@ Some configuration is required in order to run ottosocial. Here's the detail:
 
 **NOTES**: 
 
-* If `logpath` is not filled, the default output is your shell.
+* If `logpath` is not filled, the default output will be the shell. I advise you to use a logpath and tailing it at all time to see every errors.
 * If `verify` is `true`, ottosocial will stop if one (or more) tweets are invalid.
 
-You can either way use flags or a configuration file.
+You can either way use flags, a configuration file, or both at the same time.
 
-## Flags
+## Using flags
 
-If you don't want to use a configuration file, you'll need to precise every required configuration field directly when you launch ottosocial.
+If you use only flags, you'll need to precise every required configuration field directly when you launch ottosocial.
 
 For example:
 
@@ -84,7 +84,7 @@ ottosocial csv --key=1234 --secret=5678 --token=910-11 --token-secret=12KK --log
 
 ## Configuration File
 
-This is the simplest way to configure ottosocial. You'll need to create the file `~/ottosocial.yml` and add your configuration there. For example:
+This is the simplest way to use ottosocial. You'll need to create the file `~/ottosocial.yml` (directly in your home directory) and add your configuration there. For example:
 
 ```
 ---
@@ -96,11 +96,11 @@ logpath: /tmp/ottosocial-logs
 file: ~/my-tweets.csv
 ```
 
-Then, you simply need to launch ottosocial (with or without the `--verify` flag). 
+Then, you simply need to launch ottosocial.
 
 # CSV Format
 
-ottosocial can send tweets you previously typed in a CSV. This CSV needs to have two columns: `date` (when the tweet will be send) and `message`.
+ottosocial can send tweets from a CSV. It needs to have two columns: `date` (when the tweet will be send) and `message`.
 
 For example:
 
@@ -113,7 +113,7 @@ You need to respect the date format. If the date is in the past, the tweet will 
 
 **NOTES**:
 
-* If you modify the CSV, you need to relaunch ottosocial. I might implement a hot reload later.
+* If you modify the CSV, you need to relaunch ottosocial. I might implement hot reloading later, if somebody is interested by that.
 
 # Contribute
 
