@@ -1,4 +1,5 @@
-![travis CLI](https://api.travis-ci.org/Phantas0s/ottosocial.svg?branch=master&style=for-the-badge)
+![ottosocial logo](./logo.png)
+![travis CLI](https://api.travis-ci.org/Phantas0s/ottosocial.svg?branch=master&style=for-the-badge) ![Hits-of-Code](https://hitsofcode.com/github/phantas0s/devdash) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Go Report Card](https://goreportcard.com/badge/github.com/Phantas0s/ottosocial) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8d788aa393a44def853e7cd90b403164)](https://www.codacy.com/manual/Phantas0s/ottosocial?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Phantas0s/ottosocial&amp;utm_campaign=Badge_Grade)
 
 ottosocial is a CLI which allows you to schedule and send automatically messages on social media, from a CSV file.
 
@@ -20,7 +21,7 @@ ottosocial is a CLI which allows you to schedule and send automatically messages
 
 ## General
 
-You can simply grab the [latest released binary file](https://github.com/Phantas0s/ottosocial/releases/latest) and download the version you need, depending of your OS.
+You can simply grab the [latest released binary file](https://github.com/Phantas0s/ottosocial/releases/latest) and download the version you need, depending on your OS.
 
 ## Linux script
 
@@ -38,7 +39,7 @@ You need to clone this repository and build the binary in the root directory.
 
 # Getting Started
 
-First of all, you need to authorize ottosocial to send tweets from your twitter account. To do so:
+First, you need to authorize ottosocial to send tweets from your twitter account. To do so:
 
 1. Go to [Twitter app management](https://developer.twitter.com/en/apps). Log in if necessary.
 2. Click on "Create an app".
@@ -67,7 +68,7 @@ Some configuration is required in order to run ottosocial. Here's the detail:
 
 **NOTES**: 
 
-* If `logpath` is not filled, the default output will be the shell. I advise you to use a logpath and tailing it at all time to see every errors.
+* If `logpath` is not filled, the default output will be the shell. I advise you to use a logpath and tailing it at all time to see every error.
 * If `verify` is `true`, ottosocial will stop if one (or more) tweets are invalid.
 
 You can either way use flags, a configuration file, or both at the same time.
@@ -100,30 +101,34 @@ Then, you simply need to launch ottosocial.
 
 # CSV Format
 
-ottosocial can send tweets from a CSV. It needs to have two columns: `date` (when the tweet will be send) and `message`.
+ottosocial can send tweets from a CSV. It needs to have two columns: `date` (when the tweet will be sent) and `message`.
 
 For example:
 
 ```csv
 2020-01-23 07:57,This is a test
-2020-01-23 08:00,"This is,a,with quotes test"
+2020-01-23 08:00,"This is a test, with quotes"
 ```
 
-You need to respect the date format. If the date is in the past, the tweet will never be send.
+You need to respect the date format. If the date is in the past, the tweet will never be sent.
 
 **NOTES**:
 
-* If you modify the CSV, you need to relaunch ottosocial. I might implement hot reloading later, if somebody is interested by that.
+* If you modify the CSV, you need to relaunch ottosocial. I might implement hot reloading later, if somebody is interested in that.
 
 # Contribute
 
-First of all, thanks a lot if you want to contribute to ottosocial!
+Thanks a lot if you want to contribute to ottosocial!
 
 I think the ["talk, then code"](https://dave.cheney.net/tag/contributing) practice is pretty good to avoid misunderstandings and hours of work for nothing.
 
 Therefore:
 
 "Every new feature or bug fix should be discussed with the maintainer(s) of the project before work commences. It’s fine to experiment privately, but do not send a change without discussing it first."
+
+# Acknowledgement
+
+The logo uses [Maria Letta mega doodle pack](https://github.com/MariaLetta/mega-doodles-pack). Thanks for these great illustrations.
 
 # Licence
 
