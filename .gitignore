@@ -3,3 +3,4 @@ vendor
 .goreleaser.yml
 goreleaser.sh
 test.csv
+ottosocial.yml

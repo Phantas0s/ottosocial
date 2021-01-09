@@ -20,7 +20,7 @@ func initConfig() {
 	}
 
 	viper.AddConfigPath(home)
-	// viper.AddConfigPath("/home/hypnos")
+	viper.AddConfigPath(".")
 	viper.SetConfigName("ottosocial")
 
 	viper.ReadInConfig()

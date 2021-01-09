@@ -51,7 +51,7 @@ func csv() {
 	}
 
 	if verify {
-		errs := tw.VerifyTweetSchedules(tweetScheduled)
+		errs := tw.ValidateTweets(tweetScheduled)
 		if len(errs) > 0 {
 			for _, v := range errs {
 				logger.Println(v)

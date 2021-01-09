@@ -2,10 +2,16 @@ package internal
 
 import (
 	"log"
+	"strings"
 	"time"
 
 	"github.com/Phantas0s/ottosocial/internal/plateform"
 	"github.com/pkg/errors"
+)
+
+const (
+	limitTweet = 280
+	separator  = "|"
 )
 
 type Twitter struct {
@@ -38,15 +44,6 @@ func NewTwitter(
 	}, nil
 }
 
-func (t *Twitter) SendTweet(message string) error {
-	err := t.twitter.SendTweet(message)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (t *Twitter) Sender(ts []TweetSchedule, logger *log.Logger) func() error {
 	return func() error {
 		defer func() {
@@ -58,8 +55,8 @@ func (t *Twitter) Sender(ts []TweetSchedule, logger *log.Logger) func() error {
 			// TODO not really reliable / lack of precision (?)
 			now := time.Now().Format(timeLayout + ":05")
 			if v.Date.Format(timeLayout+":05") == now {
-				err := t.twitter.SendTweet(v.TweetText)
-				logger.Printf("The tweet '%s' was sent", v.TweetText)
+				err := t.SendThread(v.TweetText)
+				logger.Printf("The tweet(s) '%s' was sent", v.TweetText)
 				if err != nil {
 					return errors.Wrapf(err, "Error while sending the message '%s' to Twitter", v.TweetText)
 				}
@@ -70,13 +67,34 @@ func (t *Twitter) Sender(ts []TweetSchedule, logger *log.Logger) func() error {
 	}
 }
 
-func (*Twitter) VerifyTweetSchedules(ts []TweetSchedule) []error {
+func (t *Twitter) SendThread(message string) error {
+	messages := strings.Split(message, separator)
+	_, err := t.twitter.SendThread(messages)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (*Twitter) ValidateTweets(ts []TweetSchedule) []error {
 	errors := []error{}
 	for _, v := range ts {
-		_, err := plateform.VerifyTweetLength(v.TweetText)
-		if err != nil {
-			errors = append(errors, err)
+		tws := strings.Split(v.TweetText, separator)
+		for _, t := range tws {
+			_, err := ValidateTweetLength(t)
+			if err != nil {
+				errors = append(errors, err)
+			}
 		}
 	}
 	return errors
+}
+
+func ValidateTweetLength(message string) (bool, error) {
+	if len(message) > limitTweet {
+		return false, errors.Errorf("The message contains more than %d characters: \n \"%s\"", limitTweet, message)
+	}
+
+	return true, nil
 }

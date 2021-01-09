@@ -5,10 +5,7 @@ package plateform
 import (
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
-	"github.com/pkg/errors"
 )
-
-const limitTweet = 280
 
 type Twitter struct {
 	client *twitter.Client
@@ -36,19 +33,41 @@ func NewTwitterClient(consumerKey, consumerSecret, accessToken, accessTokenSecre
 	}, nil
 }
 
-func (t Twitter) SendTweet(text string) error {
-	_, _, err := t.client.Statuses.Update(text, nil)
+func (t Twitter) SendTweet(text string) (*twitter.Tweet, error) {
+	sentTweet, _, err := t.client.Statuses.Update(text, nil)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return sentTweet, nil
 }
 
-func VerifyTweetLength(message string) (bool, error) {
-	if len(message) > limitTweet {
-		return false, errors.Errorf("The message contains more than %d characters: \n \"%s\"", limitTweet, message)
+func (t Twitter) ReplyTweet(text string, tweet twitter.Tweet) (*twitter.Tweet, error) {
+	sentTweet, _, err := t.client.Statuses.Update(text, &twitter.StatusUpdateParams{InReplyToStatusID: tweet.ID})
+	if err != nil {
+		return nil, err
 	}
 
-	return true, nil
+	return sentTweet, nil
+}
+
+func (t Twitter) SendThread(tweets []string) ([]twitter.Tweet, error) {
+	tweetSents := []twitter.Tweet{}
+	for k, v := range tweets {
+		if len(tweetSents) == 0 {
+			tweetSent, err := t.SendTweet(v)
+			if err != nil {
+				return tweetSents, err
+			}
+			tweetSents = append(tweetSents, *tweetSent)
+		} else {
+			tweetSent, err := t.ReplyTweet(v, tweetSents[k-1])
+			if err != nil {
+				return tweetSents, err
+			}
+			tweetSents = append(tweetSents, *tweetSent)
+		}
+	}
+
+	return tweetSents, nil
 }
