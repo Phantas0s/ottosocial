@@ -3,6 +3,8 @@
 
 ottosocial is a CLI which allows you to schedule and send automatically messages on social media, from a CSV file.
 
+You can send threads by separating your tweets with a pipe `|`. As a result, you can't use the pipe as a character in a tweet.
+
 *For now, only Twitter is supported.*
 
 *ottosocial is in beta. Breaking changes might come.*
