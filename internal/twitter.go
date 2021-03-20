@@ -23,18 +23,8 @@ type TweetSchedule struct {
 	TweetText string
 }
 
-func NewTwitter(
-	consumerKey,
-	consumerSecret,
-	accessToken,
-	accessTokenSecret string,
-) (*Twitter, error) {
-	t, err := plateform.NewTwitterClient(
-		consumerKey,
-		consumerSecret,
-		accessToken,
-		accessTokenSecret,
-	)
+func NewTwitter(consumerKey, consumerSecret, accessToken, accessTokenSecret string) (*Twitter, error) {
+	t, err := plateform.NewTwitterClient(consumerKey, consumerSecret, accessToken, accessTokenSecret)
 	if err != nil {
 		return nil, err
 	}

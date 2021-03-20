@@ -8,43 +8,33 @@ import (
 	"github.com/Phantas0s/ottosocial/internal"
 	"github.com/jasonlvhit/gocron"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
-var (
-	consumerKey    string
-	consumerSecret string
-	token          string
-	tokenSecret    string
-	filepath       string
-	logpath        string
-	verify         bool
-)
+var fpath string
+var verify bool
 
-var csvCmd = &cobra.Command{
-	Use:   "csv",
-	Short: "csv",
-	Run: func(cmd *cobra.Command, args []string) {
-		csv()
-	},
+func csvCmd(logger *log.Logger) *cobra.Command {
+	csvCmd := &cobra.Command{
+		Use:   "csv",
+		Short: "csv",
+		Run: func(cmd *cobra.Command, args []string) {
+			csv(logger)
+		},
+	}
+
+	csvCmd.Flags().StringVarP(&fpath, "filepath", "f", "", "Filepath for your Tweet CSV (required)")
+	csvCmd.Flags().BoolVarP(&verify, "verify", "v", false, "Verify if the tweets are valid")
+
+	return csvCmd
 }
 
-// TODO handling error
-func csv() {
-	lp := viper.Get("logpath").(string)
-	logger := InitLoggerFile(lp)
-
-	tw, err := internal.NewTwitter(
-		viper.Get("key").(string),
-		viper.Get("secret").(string),
-		viper.Get("token").(string),
-		viper.Get("token-secret").(string),
-	)
+func csv(logger *log.Logger) {
+	tw, err := internal.NewTwitter(consumerKey, consumerSecret, token, tokenSecret)
 	if err != nil {
 		logger.Println(err)
 	}
 
-	csv := internal.NewCSV(viper.Get("filepath").(string))
+	csv := internal.NewCSV(fpath)
 	tweetScheduled, err := csv.Parse()
 	if err != nil {
 		logger.Println(err)
@@ -63,31 +53,6 @@ func csv() {
 	s := gocron.NewScheduler()
 	s.Every(1).Second().Do(tw.Sender(tweetScheduled, logger))
 	<-s.Start()
-}
-
-// TODO makes some of the configuration abstract (via map) in order to reuse it for more commands (?)
-func init() {
-	RootCmd.AddCommand(csvCmd)
-	csvCmd.PersistentFlags().StringVarP(&consumerKey, "key", "k", "", "Your Twitter Consumer Key (required)")
-	csvCmd.PersistentFlags().StringVarP(&consumerSecret, "secret", "s", "", "Your Twitter Consumer Secret (required)")
-	csvCmd.PersistentFlags().StringVarP(&token, "token", "t", "", "Your Twitter Access Token (required)")
-	csvCmd.PersistentFlags().StringVarP(&tokenSecret, "token-secret", "j", "", "Your Twitter Access Token Secret (required)")
-	csvCmd.PersistentFlags().StringVarP(&filepath, "filepath", "f", "", "Filepath for your Tweet CSV (required)")
-	csvCmd.PersistentFlags().StringVarP(&logpath, "logpath", "l", "", "path for logs")
-	csvCmd.PersistentFlags().BoolVarP(&verify, "verify", "v", false, "Verify if the tweets are valid")
-
-	csvCmd.MarkFlagRequired("key")
-	csvCmd.MarkFlagRequired("secret")
-	csvCmd.MarkFlagRequired("token")
-	csvCmd.MarkFlagRequired("token-secret")
-	csvCmd.MarkFlagRequired("filepath")
-
-	viper.BindPFlag("key", csvCmd.PersistentFlags().Lookup("key"))
-	viper.BindPFlag("secret", csvCmd.PersistentFlags().Lookup("secret"))
-	viper.BindPFlag("token", csvCmd.PersistentFlags().Lookup("token"))
-	viper.BindPFlag("token-secret", csvCmd.PersistentFlags().Lookup("token-secret"))
-	viper.BindPFlag("filepath", csvCmd.PersistentFlags().Lookup("filepath"))
-	viper.BindPFlag("logpath", csvCmd.PersistentFlags().Lookup("logpath"))
 }
 
 func InitLoggerFile(logpath string) *log.Logger {

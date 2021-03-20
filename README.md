@@ -9,7 +9,7 @@ You can send threads by separating your tweets with a pipe `|`. As a result, you
 
 *ottosocial is in beta. Breaking changes might come.*
 
-# Menu
+## Menu
 
 * [Installation](#installation)
 * [Getting Started](#getting-started)
@@ -19,42 +19,48 @@ You can send threads by separating your tweets with a pipe `|`. As a result, you
 * [Contribute](#contribute)
 * [Licence](#licence)
 
-# Installation
+## Installation
 
-## General
+### General
 
 You can simply grab the [latest released binary file](https://github.com/Phantas0s/ottosocial/releases/latest) and download the version you need, depending on your OS.
 
-## Linux script
+### Linux script
 
 If you use a Linux based OS, here's a simple way to download ottosocial and move it in `/usr/local/bin` to be able to use it globally.
 
 ```shell
 curl -LO https://raw.githubusercontent.com/Phantas0s/ottosocial/master/install/linux.sh && \
-sh ./linux.sh && \
+./linux.sh && \
 rm linux.sh
 ```
 
-## Manual installation
+### Manual installation
 
 You need to clone this repository and build the binary in the root directory.
 
-# Getting Started
+## Getting Started
 
 First, you need to authorize ottosocial to send tweets from your twitter account. To do so:
 
 1. Go to [Twitter app management](https://developer.twitter.com/en/apps). Log in if necessary.
 2. Click on "Create an app".
 3. Fill the required fields.
-4. You'll need to copy the API key, API secret key, Access Token and Access Token Secret provided, to authorize ottosocial to send tweets (see below the configuration).
+4. You'll need to copy the following to authorize ottosocial to send tweets:
+    * API key, 
+    * API secret key, 
+    * Access Token 
+    * Access Token Secret provided, 
 
-# Commands
+See below the configuration to include everything to the configuration file.
+
+## Commands
 
 For now, only the command `csv` is available.
 
 I advise you to use a [terminal multiplexer](https://thevaluable.dev/tmux-boost-productivity-terminal/) or `&` to run ottosocial in the background.
 
-# Configuration
+## Configuration
 
 Some configuration is required in order to run ottosocial. Here's the detail:
 
@@ -75,7 +81,7 @@ Some configuration is required in order to run ottosocial. Here's the detail:
 
 You can either way use flags, a configuration file, or both at the same time.
 
-## Using flags
+### Using flags
 
 If you use only flags, you'll need to precise every required configuration field directly when you launch ottosocial.
 
@@ -85,7 +91,7 @@ For example:
 ottosocial csv --key=1234 --secret=5678 --token=910-11 --token-secret=12KK --logpath=/tmp/ottosocial-logs -v -f ./test.csv
 ```
 
-## Configuration File
+### Configuration File
 
 This is the simplest way to use ottosocial. You'll need to create the file `~/ottosocial.yml` (directly in your home directory) and add your configuration there. For example:
 
@@ -101,7 +107,7 @@ file: ~/my-tweets.csv
 
 Then, you simply need to launch ottosocial.
 
-# CSV Format
+## CSV Format
 
 ottosocial can send tweets from a CSV. It needs to have two columns: `date` (when the tweet will be sent) and `message`.
 
@@ -118,7 +124,7 @@ You need to respect the date format. If the date is in the past, the tweet will 
 
 * If you modify the CSV, you need to relaunch ottosocial. I might implement hot reloading later, if somebody is interested in that.
 
-# Contribute
+## Contribute
 
 Thanks a lot if you want to contribute to ottosocial!
 
@@ -128,10 +134,10 @@ Therefore:
 
 "Every new feature or bug fix should be discussed with the maintainer(s) of the project before work commences. It’s fine to experiment privately, but do not send a change without discussing it first."
 
-# Acknowledgement
+## Acknowledgement
 
 The logo uses [Maria Letta mega doodle pack](https://github.com/MariaLetta/mega-doodles-pack). Thanks for these great illustrations.
 
-# Licence
+## Licence
 
 [Apache Licence 2.0](https://choosealicense.com/licenses/apache-2.0/)
